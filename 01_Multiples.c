@@ -3,8 +3,11 @@
 /*
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
 Find the sum of all the multiples of 3 or 5 below 1000.
+<<<<<<< HEAD
 
 RESULT: CORRECT
+=======
+>>>>>>> 3a684c3007887e3dcf6afb622cd3dfeb805a17f6
 */
 
 #define UPPER_BOUND 999 // 1000 - 1 to exclude 1000
@@ -36,6 +39,10 @@ int main() {
     }
 
     printf("Sum is: %d", sum);
+<<<<<<< HEAD
     return 0;
+=======
+    return sum;
+>>>>>>> 3a684c3007887e3dcf6afb622cd3dfeb805a17f6
 
 }
