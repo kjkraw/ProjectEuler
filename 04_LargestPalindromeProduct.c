@@ -13,21 +13,25 @@ What is the differnce between:
 - char* buffer = (char*) calloc(10, sizeof(char));
 */
 
+#define MAX_DIGITS 10
 #define FACTOR_LIMIT 999
 
 int reverseInt(int n) {
-    char* buffer = (char*) calloc(11, sizeof(char));
+    char *buffer = (char*) calloc(MAX_DIGITS + 1, sizeof(char));
     if (buffer == NULL) exit(1);
-    char* rev_buffer = (char*) calloc(11, sizeof(char));
+    sprintf(buffer, "%d", n);
+
+    int i = 0;
+    while (buffer[i] != '\0') i++;
+    int buf_len = i + 1; // Add space for \0 at end of array
+    buffer = realloc(buffer, buf_len * sizeof(char));
+    
+    char *rev_buffer = (char*) calloc(buf_len, sizeof(char));
     if (rev_buffer == NULL) exit(1);
 
-    sprintf(buffer, "%d", n);
-    for (int i = 0; i < 10; i++) {
-        /* I believe that something is going wrong here.
-        I'm not exactly sure, but part of the problem is that I don't truly understand arrays and pointers.
-        I guess I need to read up on this more in order to get this challenge correct.
-        */
-        rev_buffer[0+i] = buffer[9-i];
+    const int rev_offset = buf_len - 2; // length -1 (for zero-indexing) -1 (to leave room for \0)
+    for (int i = 0; i < buf_len - 1; i++) { // We end the loop before the \0
+        rev_buffer[(rev_offset) - i] = buffer[i];
     }
 
     return atoi(rev_buffer);
@@ -38,6 +42,9 @@ int isPalindrome(int n) {
 }
 
 int main() {
+    printf("%d\n", reverseInt(12345));
+    return 1;
+
     int factor_a = 0;
     int factor_b = 0;
     int cur_best = 0;
