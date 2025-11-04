@@ -2,6 +2,13 @@
 
 #define ULL unsigned long long
 
+ULL factorial(ULL n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n-1);
+}
+
 /** Find the factors of a number using trial division.
 This is a very naieve and ineffective way to 
 @param to_factor The number that should be factored
