@@ -8,8 +8,8 @@ This is a very naieve and ineffective way to
 @param factors Pointer to the pointer to the start of the array
 @return num_factors The number of factors (the length of the factors array)
 */
-ULL trialdivision(ULL to_factor, ULL **factors) {
-    ULL num_factors = 0;
+int trialdivision(ULL to_factor, ULL **factors) {
+    int num_factors = 0;
     ULL *factors_ptr = NULL;
 
     for (ULL i = 1; i <= to_factor; i++) {
