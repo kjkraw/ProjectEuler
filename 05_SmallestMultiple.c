@@ -8,14 +8,11 @@ What is the smallest positive number that is evenly divisible by all of the numb
 #include "../ProjectEuler/lib/mymath.h"
 
 int test(unsigned long long n) {
-    unsigned long long *factors = NULL;
-    int num_factors = trialdivision(n, &factors);
-    for (int i = 1; i <= 20; i++) {
-        if (factors[i-1] != i) {
+    for (int i = 2; i <= 20; i++) {
+        if (n % i != 0) {
             return 0;
         }
     }
-    free(factors);
     return 1;
 }
 
