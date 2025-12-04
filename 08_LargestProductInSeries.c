@@ -3,7 +3,7 @@ The four adjacent digits in the 1000-digit number that have the greatest product
 Find the thirteen adjacent digits in the number that have the greatest product.
 What is the value of the product?
 
-RESULT: INCOMPLETE
+RESULT: CORRECT
 */
 
 #include <stdio.h>
@@ -19,14 +19,27 @@ int main() {
         digits[i] = number[i] - '0'; // the fact that this conversion works is bonkers.
     }
 
-    long largest = 0;
-    for (int i = 0; i < 1000 - WINDOW; i++) {
-        long product = 1;
+    long long largest = 0;
+    int best_digits [WINDOW] = {0};
+    int cur_digits [WINDOW] = {0};
+    for (int i = 0; i < 1000 - WINDOW + 1; i++) {
+        long long product = 1;
         for (int j = 0; j < WINDOW; j++) {
+            cur_digits[j] = digits[i + j];
             product *= digits[i + j];
         }
-        if (product > largest) largest = product;
+        if (product > largest) {
+            for (int j = 0; j < WINDOW; j++) {
+                best_digits[j] = cur_digits[j];
+            }
+            largest = product;
+        }
     }
 
-    printf("Largest product: %ld\n", largest);
+    printf("Best digits: [ ");
+    for (int i = 0; i < WINDOW; i++) {
+        printf("%d ", best_digits[i]);
+    }
+    printf("]\n");
+    printf("Largest product: %lld\n", largest);
 }
