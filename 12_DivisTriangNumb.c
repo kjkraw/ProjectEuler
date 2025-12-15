@@ -2,6 +2,8 @@
 The sequence of triangle numbers is made by summing the natural numbers.
 e.g. 7th = 1+2+3+4+5+6+7
 What is the first triangle number to have over 500 divisors?
+
+RESULT: SUCCESS
 */
 
 #include <stdio.h>
@@ -35,7 +37,6 @@ int num_factors(long n) {
                 break;
             }
             if(i >= 57) { // This number is likely a large prime; it doesn't need to be considered.
-                printf("WARNING: %ld is not divisible by one of the primes!", n);
                 return -1;
             }
         }
@@ -46,41 +47,23 @@ int num_factors(long n) {
 
 
 int main() {
-    // What if I multiply a bunch of primes?
-    // Any form of iteration like this seems to take too long.
-
-    /*
-    Prime factorization:
-    Any number can be represented as the product of primes:
-    X = p_1**a * p_2**b * (...) * p_n**m
-
-    The number of factors (divisors) is then (a+1) * (b+1) * ... * (m+1)
-
-    Now we have a few equations/inequalities...
-    
-    500 < (a+1) * (b+1) * ... * (m+1)
-    X = p_1**a * p_2**b * ... * p_m**m
-    X = (n|1) * ((n+1)/2)
-    
-    */
-
-    for (int i = 1; i < 500; i++) {
-        int divisors = num_factors(i);
-        printf("Divisors of %d: %d\n", i, divisors);
-    }
-
     int n = 1;
 
     do {
         long T_n = (n|1) * ((n+1)/2);
 
-        // Now we compute prime factorization?
-        // I start by having a list of the first 100 primes or something silly
+        int factors = num_factors(T_n);
 
-        // Iteratively divide by the lowest prime
-        // Keep track of how many times divided by each prime
+        if(factors > 500) {
+            printf("\nResult found!\nn: %d, T_n: %ld, factors: %d\n", n, T_n, factors);
+            return;
+        }
+
+        if (factors > 100) {
+            printf("\rn: %d, T_n: %ld, factors: %d", n, T_n, factors);
+        }
 
         n++;
-    }while(0);
+    }while(1);
 
 }
