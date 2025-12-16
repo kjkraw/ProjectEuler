@@ -110,41 +110,39 @@ const char numbers[100][51] = {
 "20849603980134001723930671666823555245252804609722",
 "53503534226472524250874054075591789781264330331690"};
 
+/*
+1. For each digit place, find the sum of all digits in that place.
+
+
+*/
+
 int main() {
 
-    /*
-    What makes this hard is that the numbers are too large to do normal integer addition.
-    As such, I essentially need to represent the sum as a string of digits.
-    So, what does an algorithm for addition by digit look like?
-    */
-
-    int digit_sums[50] = {0};
-    for (int digit_idx = 49; digit_idx >= 0; digit_idx--) {
+    int num_digits = 50;
+    int num_strs = 100;
+    int * digit_sums = calloc(num_digits, sizeof(int));
+    for (int digit_idx = 0; digit_idx < num_digits; digit_idx++) {
         int cur_sum = 0;
-        for (int number_idx = 0; number_idx < 100; number_idx++){
-            int digit = numbers[number_idx][digit_idx] - '0';
+        for (int num_idx = 0; num_idx < num_strs; num_idx++) {
+            int digit = numbers[num_idx][digit_idx] - '0';
             cur_sum += digit;
         }
         digit_sums[digit_idx] = cur_sum;
     }
 
-    char digit_buf[51] = {0};
-    int remainder = 0;
-    for (int i = 0; i < 50; i++) {
-        int sum = digit_sums[i] + digit_sums[i+1] * 10 + remainder;
+    // Now for each number, I want to take off the right-most digit, then add what's left (/10) to the next one
 
+    char digit_buf[50] = {0};
+
+    for (int sum_idx = 49; sum_idx > 0; sum_idx--) {
         char as_str[8] = {0};
-        sprintf(as_str, "%d", sum);
+        sprintf(as_str, "%d", digit_sums[sum_idx]);
         int length = strlen(as_str);
-        digit_buf[49 - i] = as_str[length-1];
-        remainder = sum / 10;
+
+        digit_buf[sum_idx] = as_str[length - 1];
+
+        digit_sums[sum_idx - 1] += digit_sums[sum_idx] / 10;
     }
 
-    char final_buf[100] = {0};
-    char as_str[8] = {0};
-    sprintf(as_str, "%d", remainder);
-    strcpy(final_buf, as_str);
-    strncat(final_buf, digit_buf, 51);
-
-    printf("Final sum: %s\n", final_buf);
+    printf("Final sum: %d%s\n", digit_sums[0]/10, digit_buf);
 }
