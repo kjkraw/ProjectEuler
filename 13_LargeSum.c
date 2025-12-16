@@ -1,7 +1,7 @@
 /*
 Find the first ten digits of the sum of the one-hundred fifty-digit numbers given.
 
-RESULT: INCORRECT
+RESULT: SUCCESS
 */
 
 #include <stdlib.h>
@@ -139,10 +139,10 @@ int main() {
         sprintf(as_str, "%d", digit_sums[sum_idx]);
         int length = strlen(as_str);
 
-        digit_buf[sum_idx] = as_str[length - 1];
+        digit_buf[sum_idx - 1] = as_str[length - 1];
 
         digit_sums[sum_idx - 1] += digit_sums[sum_idx] / 10;
     }
 
-    printf("Final sum: %d%s\n", digit_sums[0]/10, digit_buf);
+    printf("Final sum: %d%s\n", digit_sums[0], digit_buf);
 }
